@@ -49,6 +49,7 @@ function checkLetter (letterButtons) {
     for(let i=0; i < letters.length; i++) {
         if(letterButtons.textContent === letters[i].textContent.toLowerCase()) {
             letters[i].classList.add("show");
+            letters[i].classList.add("flip");
             check = true;  
         } 
     }
