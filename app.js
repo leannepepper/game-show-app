@@ -2,12 +2,14 @@ const qwerty = document.querySelector('#qwerty');
 const phraseUl = document.querySelector('#phrase ul'); 
 const resetButton = document.querySelector('.btn__reset');
 const title = document.querySelector('.title');
-// const letters = document.querySelectorAll('.letter');
+const tries = document.querySelectorAll('.tries');
+const scoreBoard = document.querySelector('#scoreboard ol');
+const overlay = document.querySelector('#overlay');
 let missed = 0; 
 
 // function to remove overlay on Start
 resetButton.addEventListener('click', function (){
-    document.querySelector('#overlay').style.display = 'none'; 
+    overlay.style.display = 'none'; 
 })
 
 const phrases = [
@@ -48,18 +50,46 @@ function checkLetter (letterButtons) {
         if(letterButtons.textContent === letters[i].textContent.toLowerCase()) {
             letters[i].classList.add("show");
             check = true;  
-        }
+        } 
     }
     return check;
+}
+function checkWin() {
+    if(document.querySelectorAll('.letter').length == document.querySelectorAll('.show').length) {
+        overlay.style.display = "block";
+        overlay.innerHTML ="YOU WIN";
+        overlay.style.fontSize = "40px";
+        overlay.style.paddingTop = "100px";
+        overlay.classList.remove('start'); 
+        overlay.classList.add('win');
+    }
+    else if(missed >= 5){
+        overlay.style.display = "block";
+        overlay.innerHTML ="GAME OVER";
+        overlay.style.fontSize = "40px";
+        overlay.style.paddingTop = "100px";
+        overlay.classList.remove('start'); 
+        overlay.classList.add('lose');
+
+     }
+
 }
 
 qwerty.addEventListener('click', (e) => {
     let letterFound = checkLetter(e.target); 
-    
     if(e.target.tagName === 'BUTTON'){
         e.target.classList.add('chosen'); 
         e.target.disabled = true; 
 
-    }
-   
+        if(letterFound === null) {
+            missed += 1; 
+            console.log(missed);
+            tries[missed-1].style.display = "none"; 
+            }
+        }   
+        checkWin();     
 })
+
+
+
+ 
