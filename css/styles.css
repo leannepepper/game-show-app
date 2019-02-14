@@ -163,6 +163,6 @@ button {
   color: var(--color-lose);
 }
 .flip {
-  transform: rotateY(360deg);
-  transition: transform 900ms ease-in; 
+  transform: rotateX(360deg);
+  transition: transform 600ms ease-in; 
 }
